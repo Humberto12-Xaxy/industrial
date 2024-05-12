@@ -13,3 +13,6 @@ class Activity(Base):
 
     def __str__(self):
         return f'id: {self.id}, nombre: {self.nombre}, ciclos: {self.ciclos}, idProceso: {self.idProceso}'
+    
+    def as_dict(self):
+        return {key: value for key, value in self.__dict__.items() if key != '_sa_instance_state'}

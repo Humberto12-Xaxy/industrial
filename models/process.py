@@ -12,3 +12,6 @@ class Process(Base):
     descripcion = Column(String)
     activities = relationship(lambda: Activity)
     factors = relationship(lambda: Factor)
+
+    def as_dict(self):
+        return {key: value for key, value in self.__dict__.items() if key != '_sa_instance_state'}

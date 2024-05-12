@@ -1,12 +1,23 @@
 from sqlalchemy.orm import Session
 
+from sqlalchemy.orm.state import InstanceState
+
+import json
+
 from models.process import Process
 from schemas.process import ProcessCreate 
 
 from crud.activity import create_activity
 
-def getUsers(db: Session):
-    return db.query(Process).all()
+def serialize_instance(obj):
+    if isinstance(obj, InstanceState):
+        return None
+    return obj
+
+def getProcess(db: Session):
+    process =  db.query(Process).all()
+    serialized_process = [p.as_dict() for p in process]
+    return serialized_process
 
 def create_process(db: Session, process: ProcessCreate):
     list_activities = []
