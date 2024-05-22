@@ -3,17 +3,17 @@ from pydantic import BaseModel
 class SuplementBase(BaseModel):
     necesidades : float
     fatiga : float
-    dePie : float
+    depie : float
     postura : float
     fuerza : float
 
 class CreateSuplement(SuplementBase):
-    idProceso : int
+    idproceso : int
 
 
 class Suplement(SuplementBase):
     id : int
-    idProceso : int
+    idproceso : int
 
     class Config:
         from_attributes = True

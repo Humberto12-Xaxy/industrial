@@ -11,4 +11,4 @@ class Factor(Base):
     esfuerzo = Column(Float)
     condiciones = Column(Float)
     consistencia = Column(Float)
-    idProceso = Column(Integer, ForeignKey("procesos.id"))
+    idproceso = Column(Integer, ForeignKey("procesos.id"))

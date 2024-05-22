@@ -7,12 +7,12 @@ class FactorBase(BaseModel):
     consistencia : float
 
 class CreateFactor(FactorBase):
-    idProceso : int
+    idproceso : int
 
 
 class Factor(FactorBase):
     id : int
-    idProceso : int
+    idproceso : int
 
     class Config:
         from_attributes = True

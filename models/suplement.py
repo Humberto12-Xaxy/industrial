@@ -8,7 +8,7 @@ class Suplement(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     necesidades = Column(Float)
     fatiga = Column(Float)
-    dePie = Column(Float)
+    depie = Column(Float)
     postura = Column(Float)
     fuerza = Column(Float)
     idproceso = Column(Integer, ForeignKey("procesos.id"))
