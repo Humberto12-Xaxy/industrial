@@ -7,8 +7,8 @@ def get_activities(db: Session):
     return db.query(Activity).all()
 
 def create_activity(db: Session, activity: CreateActivity, id_process: int):
-    activity = Activity(**activity.model_dump(), idProceso=id_process)
-    db.add(activity)
+    get_activity = Activity(**activity.model_dump(), idproceso=id_process)
+    db.add(get_activity)
     db.commit()
-    db.refresh(activity)
-    return activity
+    db.refresh(get_activity)
+    return get_activity

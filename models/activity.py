@@ -5,10 +5,10 @@ from db.connection import Base
 class Activity(Base):
     __tablename__ = "actividades"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     nombre = Column(String)
     ciclos = Column(Integer)
-    idProceso = Column(Integer, ForeignKey("procesos.id"))
+    idproceso = Column(Integer, ForeignKey("procesos.id"))
 
 
     def __str__(self):

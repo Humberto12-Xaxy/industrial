@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 from schemas.activity import CreateActivity
 
@@ -7,6 +7,7 @@ from schemas.activity import CreateActivity
 class ProcessBase(BaseModel):
     name : str
     description : str
+    id_done : Optional[bool] = False
 
 class ProcessCreate(ProcessBase):
     activities : List[CreateActivity]

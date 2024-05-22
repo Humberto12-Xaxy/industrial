@@ -4,7 +4,7 @@ from db.connection import Base
 class Time(Base):
     __tablename__ = "tiempos"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     duracion = Column(Float)
     mano = Column(String)
-    idActividad = Column(Integer, ForeignKey("actividades.id"))
+    idactividad = Column(Integer, ForeignKey("actividades.id"))

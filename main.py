@@ -1,6 +1,5 @@
-import json
-from time import sleep
-from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from crud.activity import get_activities
@@ -15,10 +14,22 @@ from crud.process import getProcess, create_process
 from db.connection import SessinLocal
 from schemas.suplement import CreateSuplement
 
-from socket_connection.connection_manager import ConnectionManager
 
 app = FastAPI()
-manager = ConnectionManager()
+
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def get_db():
     db = SessinLocal()
@@ -34,7 +45,6 @@ def root(db: Session = Depends(get_db)):
 
 @app.post('/createProcess')
 async def createProcess(process: ProcessCreate, db: Session = Depends(get_db)):
-    print('entré')
     return create_process(db, process)
 
 @app.get('/getActivities')
@@ -75,16 +85,3 @@ async def createListTimes(times: CreateVeryTime ,db: Session = Depends(get_db)):
         times_list.append(final_time)
     print(times_list)
     return times_list
-
-@app.websocket("/ws/process")
-async def websocket_endpoint(websocket: WebSocket, db: Session = Depends(get_db)):
-    await manager.connect(websocket)
-    try:
-        while True:
-            sleep(5)
-            process = getProcess(db)
-            await websocket.send_json(process)
-
-    except WebSocketDisconnect:
-        manager.disconnect(websocket)
-        await websocket.send_text("Disconnected")
